@@ -148,7 +148,7 @@ app.post('/api/addfeedback', async (req, res) => {
   }
 })
 
-app.post('/api/dellFB', async (req, res) => {
+app.post('/api/dellFeedBack', async (req, res) => {
   // Delete all documents from the collection
 
   Feedback.deleteMany({}, (err) => {
