@@ -11,6 +11,7 @@ const { sendRoleUpdateNotification } = require('../sendRoleUpdateNotification');
 
 const UserModel = require("../models/user");
 const Complain = require("../models/newcomplain");
+const Feedback = require("../models/feedback");
 app.use(express.json())
 
 app.get("/api", (req, res) => {
@@ -123,7 +124,7 @@ app.post('/api/addfeedback', async (req, res) => {
     const { Name, Email, Contact, FeedbackMessage } = req.body;
     console.log(Name, Email, Contact, FeedbackMessage);
     // Validation
-    if (!Name || !Email || !Contact || !FeedbackMessage) {
+    if (!Name || !FeedbackMessage) {
       return res.status(400).json({ message: "Incomplete data provided" });
     }
 
@@ -145,6 +146,20 @@ app.post('/api/addfeedback', async (req, res) => {
     console.error("Error creating Feedback:", error);
     res.status(500).json({ message: "Failed to add a Feedback / Suggestion" });
   }
+})
+
+app.get("/api/feedbacks", async (req, res) => {
+    try {
+      const feedbacks = await Feedback.find({});
+      res.status(200).json({
+        status: "success",
+        feedbacks: feedbacks,
+      });
+    } catch (error) {
+      res.status(200).json({
+        status: "failed"
+      });
+    }
 })
 
 
