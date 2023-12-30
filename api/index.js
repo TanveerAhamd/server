@@ -118,6 +118,34 @@ app.post("/api/login", async (request, response) => {
 
 
 
+app.post('/api/addfeedback', async (req, res) => {
+  try {
+    const { Name, Email, Contact, FeedbackMessage } = req.body;
+    console.log(Name, Email, Contact, FeedbackMessage);
+    // Validation
+    if (!Name || !Email || !Contact || !FeedbackMessage) {
+      return res.status(400).json({ message: "Incomplete data provided" });
+    }
+
+    // Create a new Complaint
+    const newFeedback = await Feedback.create({
+      Name,
+      Email,
+      Contact,
+      FeedbackMessage,
+    });
+
+    res.status(201).json({
+      status: "success",
+      message: " Your Feedback hass been saved successfully",
+      Feedback: newFeedback,
+    });
+
+  } catch (error) {
+    console.error("Error creating Feedback:", error);
+    res.status(500).json({ message: "Failed to add a Feedback / Suggestion" });
+  }
+})
 
 
 app.post("/api/addcomplain", async (req, res) => {

@@ -11,6 +11,7 @@ const { sendRoleUpdateNotification } = require('./sendRoleUpdateNotification');
 
 const UserModel = require("./models/user");
 const Complain = require("./models/newcomplain");
+const Feedback = require("./models/feedback");
 app.use(express.json())
 
 app.get("/api", (req, res) => {
@@ -119,6 +120,34 @@ app.post("/api/login", async (request, response) => {
 
 
 
+app.post('/api/addfeedback', async (req, res) => {
+  try {
+    const { Name, Email, Contact, FeedbackMessage } = req.body;
+    console.log(Name, Email, Contact, FeedbackMessage);
+    // Validation
+    if (!Name || !Email || !Contact || !FeedbackMessage) {
+      return res.status(400).json({ message: "Incomplete data provided" });
+    }
+
+    // Create a new Complaint
+    const newFeedback = await Feedback.create({
+      Name,
+      Email,
+      Contact,
+      FeedbackMessage,
+    });
+
+    res.status(201).json({
+      status: "success",
+      message: " Your Feedback hass been saved successfully",
+      Feedback: newFeedback,
+    });
+
+  } catch (error) {
+    console.error("Error creating Feedback:", error);
+    res.status(500).json({ message: "Failed to add a Feedback / Suggestion" });
+  }
+})
 
 app.post("/api/addcomplain", async (req, res) => {
   try {
@@ -186,7 +215,7 @@ app.get('/api/applications', async (req, res) => {
     }
     console.log(query)
     const applications = await Complain.find(query);
-    res.json({status:true,applications:applications});
+    res.json({ status: true, applications: applications });
   } catch (error) {
     console.error('Error fetching applications:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -218,7 +247,7 @@ app.get('/api/applications', async (req, res) => {
 app.get("/api/getrequestbyid/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const complain = await Complain.findOne({id});
+    const complain = await Complain.findOne({ id });
     if (!complain) {
       return res.json({
         status: false,
@@ -293,11 +322,11 @@ app.put("/api/updatecomplain/:id", async (req, res) => {
 
 app.post('/api/messages', async (req, res) => {
   try {
-      const newMessage = await message.create(req.body);
-      res.status(201).json(newMessage);
+    const newMessage = await message.create(req.body);
+    res.status(201).json(newMessage);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -306,7 +335,7 @@ app.get('/api/messages/:complainid', async (req, res) => {
 
   try {
     const messagesForComplain = await message.find({ complainid })
-     
+
 
     if (!messagesForComplain || messagesForComplain.length === 0) {
       return res.status(200).json([]);
