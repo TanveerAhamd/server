@@ -147,10 +147,8 @@ app.post('/api/addfeedback', async (req, res) => {
     res.status(500).json({ message: "Failed to add a Feedback / Suggestion" });
   }
 })
-//TAnveer
 app.post('/api/dellFeedBack', async (req, res) => {
   // Delete all documents from the collection
-
   Feedback.deleteMany({}, (err) => {
     if (err) {
       console.error(err);
