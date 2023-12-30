@@ -6,12 +6,10 @@ const FeedbackSchema = new mongoose.Schema({
         required: true,
     },
     Email: {
-        type: String,
-        required: true,
+        type: String
     },
     Contact: {
-        type: String,
-        require: true
+        type: String
     },
     FeedbackMessage: {
         type: String,
