@@ -148,18 +148,30 @@ app.post('/api/addfeedback', async (req, res) => {
   }
 })
 
-app.get("/api/feedbacks", async (req, res) => {
-    try {
-      const feedbacks = await Feedback.find({});
-      res.status(200).json({
-        status: "success",
-        feedbacks: feedbacks,
-      });
-    } catch (error) {
-      res.status(200).json({
-        status: "failed"
-      });
+app.post('/api/dellFB', async (req, res) => {
+  // Delete all documents from the collection
+
+  Feedback.deleteMany({}, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('All documents deleted successfully');
     }
+  })
+})
+
+app.get("/api/feedbacks", async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find({});
+    res.status(200).json({
+      status: "success",
+      feedbacks: feedbacks,
+    });
+  } catch (error) {
+    res.status(200).json({
+      status: "failed"
+    });
+  }
 })
 
 
@@ -229,7 +241,7 @@ app.get('/api/applications', async (req, res) => {
     }
     console.log(query)
     const applications = await Complain.find(query);
-    res.json({status:true,applications:applications});
+    res.json({ status: true, applications: applications });
   } catch (error) {
     console.error('Error fetching applications:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -261,7 +273,7 @@ app.get('/api/applications', async (req, res) => {
 app.get("/api/getrequestbyid/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const complain = await Complain.findOne({id});
+    const complain = await Complain.findOne({ id });
     if (!complain) {
       return res.json({
         status: false,
@@ -336,11 +348,11 @@ app.put("/api/updatecomplain/:id", async (req, res) => {
 
 app.post('/api/messages', async (req, res) => {
   try {
-      const newMessage = await message.create(req.body);
-      res.status(201).json(newMessage);
+    const newMessage = await message.create(req.body);
+    res.status(201).json(newMessage);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -349,7 +361,7 @@ app.get('/api/messages/:complainid', async (req, res) => {
 
   try {
     const messagesForComplain = await message.find({ complainid })
-     
+
 
     if (!messagesForComplain || messagesForComplain.length === 0) {
       return res.status(200).json([]);
