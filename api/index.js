@@ -375,10 +375,14 @@ app.get('/api/messages/:complainid', async (req, res) => {
 
 
 
+// saad db
+// mongodb+srv://saad:DKdnKtF19CjhTI4k@cluster0.nqx7zzf.mongodb.net
 
 
+// tanveer db 
+// mongodb+srv://mtanveerulhassan2:PGQaPVMYsSCJ9yRB@cluster0.krsilsu.mongodb.net/
 
-mongoose.connect("mongodb+srv://saad:DKdnKtF19CjhTI4k@cluster0.nqx7zzf.mongodb.net").then(() => {
+mongoose.connect("mongodb+srv://mtanveerulhassan2:PGQaPVMYsSCJ9yRB@cluster0.krsilsu.mongodb.net/TicerComplain").then(() => {
   console.log("db  is running on port 3003 ")
   app.listen(3003, () => {
     console.log("db and server is running on port 3003 ")
