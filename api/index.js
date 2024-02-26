@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 const secretkey = "kjfskdj6^ksj98982hjk;.,-sgd434!"
-const message = require("../models/messages")
+const message = require("../models/messages");
 const jwt = require("jsonwebtoken");
 const { sendRoleUpdateNotification } = require('../sendRoleUpdateNotification');
 
