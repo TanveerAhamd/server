@@ -11,24 +11,24 @@ const sendRoleUpdateNotification = async (email, Requestid) => {
       service: 'gmail',
       auth: {
         user: 'mtanveerulhassan2@gmail.com',
-        pass: 'vpig twyc crxn ltsz',
+        pass: 'vypq cqsb oxtd vepx',
       },
       debug: true,
     });
 
     const info = await transporter.sendMail({
       from: '"TICER" <nomigill573@gmail.com>',
-      to: `${email}, ${"masifmirza927@gmail.com"}`,
+      // to: `${email}, ${"masifmirza927@gmail.com"}`,
+      to: `${email}`,
       subject: `Complain Request Submitted ${Requestid}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
 
-          <img src="https://www.ticer.pk/wp-content/uploads/2023/06/200W-TICER-Logo-PNG.png.webp"/>
+          <img src="https://ticer.pk/wp-content/uploads/2024/05/200W-TICER-Logo-PNG.png"/>
           <h2 style="color: green;">Your complain has been successfully registered </h2>
           <h2>
            Request ID: ${Requestid}</h2>
-           <a style=""text-docoration:none; href="www.ticer.com.pk">
-Track Your Application</a>
+           <a style=""text-docoration:none; href="https://complaint-site-ticer.vercel.app/trackcomplain">Track Your Application</a>
         </div>
       `,
     });

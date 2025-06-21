@@ -150,6 +150,8 @@ app.post('/api/addfeedback', async (req, res) => {
 })
 
 app.post("/api/addcomplain", async (req, res) => {
+  console.log(req.body)
+
   try {
     const { Name, Email, Department, Contact, Complainmessage } = req.body;
 
