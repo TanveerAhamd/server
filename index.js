@@ -23,9 +23,9 @@ app.get("/api", (req, res) => {
 
 app.post("/api/registrationofnewuser", async (request, response) => {
   console.log('Received request:', request.body);
-  try {
 
-    if (!request.body || !request.body.email) {
+  try {
+    if (!request.body.name || !request.body.email) {
       return response.status(400).json({
         status: false,
         error: "Invalid request. Email is missing.",
@@ -362,6 +362,10 @@ app.get('/api/messages/:complainid', async (req, res) => {
 // });
 
 mongoose.connect("mongodb+srv://mtanveerulhassan2:NzPm8TF5buG7QJnC@cluster0.tvy9wg7.mongodb.net/TICER_CMS_PLEDGES").then(() => {
+
+
+  // mongodb+srv://mtanveerulhassan2:x0hX6Nsq478avAOm@cluster0.0nhlbhe.mongodb.net/IMDBCLONEPLEDGES
+
   console.log("db  is running on port 3003 ")
   app.listen(3003, () => {
     console.log("db and server is running on port 3003 ")
